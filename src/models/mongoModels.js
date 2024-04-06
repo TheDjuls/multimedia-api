@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 // Definición del esquema del documento
 const Schema = mongoose.Schema;
 const categoriesSchema = new Schema({
-    name: String
+    _id: mongoose.Schema.Types.ObjectId,
+    name: String,
+    cover: String
 });
 
 const themeSchema = new Schema({
@@ -68,6 +70,7 @@ const contentSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     fullName: {
         type: String,
         required: true

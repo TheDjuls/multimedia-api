@@ -13,7 +13,7 @@ async function createContent(data) {
 // Función para obtener todos los contenidos
 async function getAllContents() {
     try {
-        const contents = await Content.find();
+        const contents = await Content.find().sort({ category: 1, theme: 1 });;
         return contents;
     } catch (error) {
         throw new Error('Error al obtener los contenidos: ' + error.message);
@@ -50,10 +50,45 @@ async function deleteContentById(id) {
     }
 }
 
+// Función para obtener las estadisticas de contenido
+async function getStatsContent() {
+    try {
+        const response = await Content.aggregate([
+            {
+                $group: {
+                    _id: "$category",
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+        return response;
+    } catch (error) {
+        throw new Error('Error al obtener el contenido: ' + error.message);
+    }
+}
+
+async function findContentsBySearchText(searchText) {
+    try {
+        const result = await Content.find({
+            $or: [
+                { name: { $regex: searchText, $options: 'i' } }, // Busca coincidencias en el campo 'name'
+                { description: { $regex: searchText, $options: 'i' } }, // Busca coincidencias en el campo 'description'
+                { theme: { $regex: searchText, $options: 'i' } },
+                { category: { $regex: searchText, $options: 'i' } }
+            ]
+        });
+        return result;
+    } catch (error) {
+        throw new Error('Error al buscar los contenidos por texto de búsqueda: ' + error.message);
+    }
+}
+
 module.exports = {
     createContent,
     getAllContents,
     getContentById,
     updateContentById,
-    deleteContentById
+    deleteContentById,
+    getStatsContent,
+    findContentsBySearchText
 };

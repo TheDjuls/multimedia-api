@@ -5,7 +5,8 @@ const {
     getThemes,
     getThemeById,
     updateTheme,
-    deleteTheme
+    deleteTheme,
+    getThemeByName
 } = require('../controllers/themes');
 
 // Ruta para obtener todos los temas
@@ -22,6 +23,20 @@ router.get('/themes', async (req, res) => {
 router.get('/themes/:id', async (req, res) => {
     try {
         const theme = await getThemeById(req.params.id);
+        if (theme) {
+            res.json(theme);
+        } else {
+            res.status(404).json({ message: 'Tema no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Ruta para obtener un tema por su ID
+router.get('/themes/name/:name', async (req, res) => {
+    try {
+        const theme = await getThemeByName(req.params.name);
         if (theme) {
             res.json(theme);
         } else {

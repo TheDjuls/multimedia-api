@@ -36,6 +36,18 @@ async function getThemeById(themeId) {
     }
 }
 
+// Función para obtener un tema por su ID
+async function getThemeByName(name) {
+    try {
+        const theme = await Theme.findOne({name});
+        console.log('Tema encontrado por ID:', theme);
+        return theme;
+    } catch (error) {
+        console.error('Error al obtener el tema por ID:', error);
+        throw error;
+    }
+}
+
 // Función para actualizar un tema por su ID
 async function updateTheme(themeId, newData) {
     try {
@@ -64,5 +76,6 @@ module.exports = {
     getThemes,
     getThemeById,
     updateTheme,
-    deleteTheme
+    deleteTheme,
+    getThemeByName
 };

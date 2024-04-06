@@ -4,7 +4,7 @@ const uri = "mongodb+srv://TheDjuls:0TcEpWZCB3XHYWCl@monitor.t7fif9c.mongodb.net
 
 async function run() {
     try {
-      await mongoose.connect(uri, {
+       db = await mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       });
@@ -15,3 +15,5 @@ async function run() {
   }
   
   run();
+
+  

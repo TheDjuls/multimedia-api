@@ -50,10 +50,31 @@ async function deleteUserById(id) {
     }
 }
 
+// login
+async function login(data) {
+    try {
+        console.log(data)
+        const user = await User.find({email: data.email});
+        if(user.length > 0){
+            if(user[0].password === data.password){
+                return user[0]
+            } else {
+                throw new Error("Password Incorrecto");
+            }
+        } else {
+            throw new Error("El correo no existe");
+        }
+        return user;
+    } catch (error) {
+        throw new Error('Error al crear el usuario: ' + error.message);
+    }
+}
+
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    login
 };

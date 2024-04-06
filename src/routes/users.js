@@ -5,9 +5,19 @@ const {
     getAllUsers,
     getUserById,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    login
 } = require('../controllers/users'); // Suponiendo que el archivo donde se encuentran las funciones CRUD se llama "userController.js"
 
+// Ruta para crear un nuevo usuario
+router.post('/login', async (req, res) => {
+    try {
+        const response = await login(req.body);
+        res.status(201).json(response);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 // Ruta para crear un nuevo usuario
 router.post('/users', async (req, res) => {
     try {

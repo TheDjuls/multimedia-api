@@ -5,8 +5,29 @@ const {
     getAllContents,
     getContentById,
     updateContentById,
-    deleteContentById
+    deleteContentById,
+    getStatsContent,
+    findContentsBySearchText
 } = require('../controllers/contents'); // Suponiendo que el archivo donde se encuentran las funciones CRUD se llama "contentController.js"
+
+router.get('/contents/stats', async (req, res) => {
+    try {
+        const result = await getStatsContent();
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Ruta para crear un nuevo contenido
+router.post('/contents/search', async (req, res) => {
+    try {
+        const search = await findContentsBySearchText(req.body.search);
+        res.status(201).json(search);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 // Ruta para crear un nuevo contenido
 router.post('/contents', async (req, res) => {
@@ -60,5 +81,7 @@ router.delete('/contents/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 
 module.exports = router;
