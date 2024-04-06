@@ -36,8 +36,63 @@ const themeSchema = new Schema({
     }
 });
 
-// Creación del modelo basado en el esquema
+const contentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    theme: {
+        type: String,
+        required: true
+    },
+    credits: {
+        type: String,
+        required: true
+    },
+    url: {
+        type: String,
+        required: true
+    },
+    text: {
+        type: String,
+        default: ""
+    }
+});
+
+const userSchema = new mongoose.Schema({
+    fullName: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    }
+});
+
+const User = mongoose.model('User', userSchema);
+const Content = mongoose.model('contents', contentSchema);
 const Categories = mongoose.model('categories', categoriesSchema);
 const Theme = mongoose.model('themes', themeSchema);
 
-module.exports = {Categories,Theme};
+module.exports = {Categories,Theme,Content, User};

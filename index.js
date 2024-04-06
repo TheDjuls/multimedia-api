@@ -3,6 +3,8 @@ require("./src/mongoConnection.js")
 const cors = require('cors')
 const categoriesRoutes = require('./src/routes/categories.js');
 const themesRoutes = require('./src/routes/themes.js');
+const contentsRoutes = require('./src/routes/contents.js');
+const usersRoutes = require('./src/routes/users.js');
 
 
 const app = express();
@@ -13,8 +15,11 @@ app.use(cors())
 app.use(express.json());
 
 // Routes
-app.use('/api', categoriesRoutes);
-app.use('/api', themesRoutes);
+const prefix = '/api'
+app.use(prefix, categoriesRoutes);
+app.use(prefix, themesRoutes);
+app.use(prefix, contentsRoutes);
+app.use(prefix, usersRoutes);
 
 // Error handler middleware
 app.use((err, req, res, next) => {
