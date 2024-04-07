@@ -5,8 +5,22 @@ const {
     getCategories,
     getCategoryById,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategoryByName
 } = require('../controllers/categories');
+
+router.get('/categories/name/:name', async (req, res) => {
+    try {
+        const category = await getCategoryByName(req.params.name);
+        if (category) {
+            res.json(category);
+        } else {
+            res.status(404).json({ message: 'Categoría no encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // Obtener todas las categorías
 router.get('/categories', async (req, res) => {

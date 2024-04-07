@@ -29,6 +29,17 @@ async function getCategoryById(categoryId) {
     }
 }
 
+async function getCategoryByName(categoryName) {
+    try {
+        const category = await Categories.findOne({name: categoryName});
+        console.log('Categoría encontrada por categoryName:', category);
+        return category;
+    } catch (error) {
+        console.error('Error al obtener la categoría por ID:', error);
+        throw error;
+    }
+}
+
 async function updateCategory(categoryId, newName) {
     try {
         const updatedCategory = await Categories.findByIdAndUpdate(categoryId, { name: newName }, { new: true });
@@ -55,5 +66,6 @@ module.exports = {
     getCategories,
     getCategoryById,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategoryByName
 }

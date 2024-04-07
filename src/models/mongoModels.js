@@ -60,8 +60,7 @@ const contentSchema = new mongoose.Schema({
         required: true
     },
     url: {
-        type: String,
-        required: true
+        type: String
     },
     text: {
         type: String,
@@ -70,7 +69,6 @@ const contentSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     fullName: {
         type: String,
         required: true

@@ -2,9 +2,11 @@ const {User} = require('../models/mongoModels'); // Suponiendo que el archivo do
 
 // Función para crear un nuevo usuario
 async function createUser(data) {
+    console.log(data)
     try {
-        const newUser = await User.create(data);
-        return newUser;
+        const newUser = new User(data);
+        const savedUser = await newUser.save();
+        return savedUser;
     } catch (error) {
         throw new Error('Error al crear el usuario: ' + error.message);
     }
@@ -54,7 +56,7 @@ async function deleteUserById(id) {
 async function login(data) {
     try {
         console.log(data)
-        const user = await User.find({email: data.email});
+        const user = await User.find({username: data.username});
         if(user.length > 0){
             if(user[0].password === data.password){
                 return user[0]
@@ -66,7 +68,7 @@ async function login(data) {
         }
         return user;
     } catch (error) {
-        throw new Error('Error al crear el usuario: ' + error.message);
+        throw new Error('Error: ' + error.message);
     }
 }
 

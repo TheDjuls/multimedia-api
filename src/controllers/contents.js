@@ -76,7 +76,7 @@ async function findContentsBySearchText(searchText) {
                 { theme: { $regex: searchText, $options: 'i' } },
                 { category: { $regex: searchText, $options: 'i' } }
             ]
-        });
+        }).sort({ category: 1, theme: 1, name: 1 });;
         return result;
     } catch (error) {
         throw new Error('Error al buscar los contenidos por texto de búsqueda: ' + error.message);
