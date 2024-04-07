@@ -5,6 +5,17 @@ async function createUser(data) {
     console.log(data)
     try {
         const newUser = new User(data);
+        //busco si ya existe el usuario
+        const username = await User.findOne({username: data.username});
+        console.log(username)
+        if(username){
+            throw new  Error('El nombre de usuario ya está en la bd');
+        }
+        //busco si ya existe el correo
+        const email = await User.findOne({email: data.email});
+        if(email){
+            throw new  Error('El correo ya está registrado en la bd');
+        }
         const savedUser = await newUser.save();
         return savedUser;
     } catch (error) {
