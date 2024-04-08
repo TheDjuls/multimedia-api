@@ -10,7 +10,6 @@ async function createCategory(name) {
     try {
         const newCategory = new Categories({ name });
         const savedCategory = await newCategory.save();
-        console.log('Categoría creada exitosamente:', savedCategory);
         return savedCategory;
     } catch (error) {
         console.error('Error al crear la categoría:', error);
@@ -21,7 +20,6 @@ async function createCategory(name) {
 async function getCategoryById(categoryId) {
     try {
         const category = await Categories.findById(categoryId);
-        console.log('Categoría encontrada por ID:', category);
         return category;
     } catch (error) {
         console.error('Error al obtener la categoría por ID:', error);
@@ -32,7 +30,6 @@ async function getCategoryById(categoryId) {
 async function getCategoryByName(categoryName) {
     try {
         const category = await Categories.findOne({name: categoryName});
-        console.log('Categoría encontrada por categoryName:', category);
         return category;
     } catch (error) {
         console.error('Error al obtener la categoría por ID:', error);
@@ -43,7 +40,6 @@ async function getCategoryByName(categoryName) {
 async function updateCategory(categoryId, newName) {
     try {
         const updatedCategory = await Categories.findByIdAndUpdate(categoryId, { name: newName }, { new: true });
-        console.log('Categoría actualizada:', updatedCategory);
         return updatedCategory;
     } catch (error) {
         console.error('Error al actualizar la categoría:', error);
@@ -54,7 +50,6 @@ async function updateCategory(categoryId, newName) {
 async function deleteCategory(categoryId) {
     try {
         await Categories.findByIdAndDelete(categoryId);
-        console.log('Categoría eliminada exitosamente');
     } catch (error) {
         console.error('Error al eliminar la categoría:', error);
         throw error;

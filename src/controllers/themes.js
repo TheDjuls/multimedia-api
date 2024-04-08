@@ -4,7 +4,6 @@ async function createTheme(themeData) {
     try {
         const newTheme = new Theme(themeData);
         const savedTheme = await newTheme.save();
-        console.log('Tema creado exitosamente:', savedTheme);
         return savedTheme;
     } catch (error) {
         console.error('Error al crear el tema:', error);
@@ -16,7 +15,6 @@ async function createTheme(themeData) {
 async function getThemes() {
     try {
         const themes = await Theme.find({});
-        console.log('Temas encontrados:', themes);
         return themes;
     } catch (error) {
         console.error('Error al obtener los temas:', error);
@@ -28,7 +26,6 @@ async function getThemes() {
 async function getThemeById(themeId) {
     try {
         const theme = await Theme.findById(themeId);
-        console.log('Tema encontrado por ID:', theme);
         return theme;
     } catch (error) {
         console.error('Error al obtener el tema por ID:', error);
@@ -40,7 +37,6 @@ async function getThemeById(themeId) {
 async function getThemeByName(name) {
     try {
         const theme = await Theme.findOne({name});
-        console.log('Tema encontrado por ID:', theme);
         return theme;
     } catch (error) {
         console.error('Error al obtener el tema por ID:', error);
@@ -52,7 +48,6 @@ async function getThemeByName(name) {
 async function updateTheme(themeId, newData) {
     try {
         const updatedTheme = await Theme.findByIdAndUpdate(themeId, newData, { new: true });
-        console.log('Tema actualizado:', updatedTheme);
         return updatedTheme;
     } catch (error) {
         console.error('Error al actualizar el tema:', error);
@@ -64,7 +59,6 @@ async function updateTheme(themeId, newData) {
 async function deleteTheme(themeId) {
     try {
         await Theme.findByIdAndDelete(themeId);
-        console.log('Tema eliminado exitosamente');
     } catch (error) {
         console.error('Error al eliminar el tema:', error);
         throw error;

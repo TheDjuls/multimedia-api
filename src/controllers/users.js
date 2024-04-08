@@ -2,12 +2,10 @@ const {User} = require('../models/mongoModels'); // Suponiendo que el archivo do
 
 // Función para crear un nuevo usuario
 async function createUser(data) {
-    console.log(data)
     try {
         const newUser = new User(data);
         //busco si ya existe el usuario
         const username = await User.findOne({username: data.username});
-        console.log(username)
         if(username){
             throw new  Error('El nombre de usuario ya está en la bd');
         }
@@ -66,7 +64,6 @@ async function deleteUserById(id) {
 // login
 async function login(data) {
     try {
-        console.log(data)
         const user = await User.find({username: data.username});
         if(user.length > 0){
             if(user[0].password === data.password){
